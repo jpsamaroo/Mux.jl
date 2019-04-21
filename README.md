@@ -246,3 +246,13 @@ end
  ```
  
  Now, if you run the program and access `http://localhost:2333`, you'll see a `Hello World` message, if you access `ws://localhost:2333/ws_io` and send some text to it, the server will reply the same message to the client.
+
+## Using Mux in Production
+
+While Mux should be perfectly useable in a Production environment, it is not
+recommended to use the `Mux.defaults` stack for a Production application. The
+`basiccatch` middleware it includes will dump potentially sensitive stacktraces
+to the client on error, which is probably not what you want to be serving to
+your clients! An alternative `Mux.prod_defaults` stack is available for
+Production applications, which is just `Mux.defaults` with a `stderrcatch`
+middleware instead (which dumps errors to stderr).
